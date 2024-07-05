@@ -60,6 +60,7 @@ public class RegisterPage {
         login.click();
     }
 
+    @Step("Отображается текст об ошибке Некорректный пароль")
     public boolean inDoneDesplayedErrorPass(){
         new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(errorPasswordLocator));
         return driver.findElement(errorPasswordLocator).isDisplayed();

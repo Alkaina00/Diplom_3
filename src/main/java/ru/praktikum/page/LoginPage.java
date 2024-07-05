@@ -70,6 +70,7 @@ public class LoginPage {
         logout.click();
     }
 
+    @Step("Отображается кнопка Войти")
     public boolean inDoneDesplayedTextIn(){
         new WebDriverWait(driver, ofSeconds(15)).until(ExpectedConditions.visibilityOfElementLocated(buttonInLocator));
         return driver.findElement(buttonInLocator).isDisplayed();

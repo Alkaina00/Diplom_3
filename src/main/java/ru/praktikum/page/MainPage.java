@@ -96,24 +96,31 @@ public class MainPage {
         fillingTab.click();
     }
 
+    @Step("Отображается кнопка Оформить заказ")
     public boolean inDoneDesplayedButtonOrd(){
         new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(buttonCreateOrderLocator));
         return driver.findElement(buttonCreateOrderLocator).isDisplayed();
     }
 
+    @Step("Отображается текст Соберите бургер")
     public boolean inDoneDesplayedBurger(){
         new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(burgerLocator));
         return driver.findElement(burgerLocator).isDisplayed();
     }
 
+    @Step("Выделена вкладка Булки")
     public boolean inDoneDesplayedBun(){
         new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(bunTextLocator));
         return driver.findElement(bunTextLocator).isDisplayed();
     }
+
+    @Step("Выделена вкладка Соусы")
     public boolean inDoneDesplayedSouse(){
         new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(souseTextLocator));
         return driver.findElement(souseTextLocator).isDisplayed();
     }
+
+    @Step("Выделена вкладка Начинки")
     public boolean inDoneDesplayedFilling(){
         new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(fillingTextLocator));
         return driver.findElement(fillingTextLocator).isDisplayed();
