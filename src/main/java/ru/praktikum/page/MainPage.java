@@ -4,10 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static java.time.Duration.ofSeconds;
 
 public class MainPage {
     private final WebDriver driver;
@@ -34,95 +30,69 @@ public class MainPage {
     }
 
     @Step("Переход в личный кабинет")
-    public void clickButtonLK(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(buttonLKLocator));
+    public void clickButtonLK() {
         WebElement buttonLK = driver.findElement(buttonLKLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(buttonLK));
         buttonLK.click();
     }
 
     @Step("Нажать кнопку Войти в аккаунт")
-    public void clickButtonInMain(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(buttonInMainLocator));
+    public void clickButtonInMain() {
         WebElement buttonInMain = driver.findElement(buttonInMainLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(buttonInMain));
         buttonInMain.click();
     }
 
     @Step("Нажать на логотип StellarBurger")
-    public void clickLogo(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(logoLocator));
+    public void clickLogo() {
         WebElement logo = driver.findElement(logoLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(logo));
         logo.click();
     }
 
     @Step("Переход в Конструктор")
-    public void clickConstructor(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(constructorLocator));
+    public void clickConstructor() {
         WebElement constructor = driver.findElement(constructorLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(constructor));
         constructor.click();
     }
 
     @Step("Нажать на вкладку Булки")
-    public void clickBunTab(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(bunTabLocator));
+    public void clickBunTab() {
         WebElement bunTab = driver.findElement(bunTabLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(bunTab));
         bunTab.click();
     }
 
     @Step("Нажать на вкладку Соусы")
-    public void clickSouseTab(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(souseTabLocator));
+    public void clickSouseTab() {
         WebElement souseTab = driver.findElement(souseTabLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(souseTab));
         souseTab.click();
     }
 
     @Step("Нажать на вкладку Начинки")
-    public void clickFillingTab(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(fillingTabLocator));
+    public void clickFillingTab() {
         WebElement fillingTab = driver.findElement(fillingTabLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(fillingTab));
         fillingTab.click();
     }
 
     @Step("Отображается кнопка Оформить заказ")
-    public boolean inDoneDesplayedButtonOrd(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(buttonCreateOrderLocator));
+    public boolean inDoneDesplayedButtonOrd() {
         return driver.findElement(buttonCreateOrderLocator).isDisplayed();
     }
 
     @Step("Отображается текст Соберите бургер")
-    public boolean inDoneDesplayedBurger(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(burgerLocator));
+    public boolean inDoneDesplayedBurger() {
         return driver.findElement(burgerLocator).isDisplayed();
     }
 
     @Step("Выделена вкладка Булки")
-    public boolean inDoneDesplayedBun(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(bunTextLocator));
+    public boolean inDoneDesplayedBun() {
         return driver.findElement(bunTextLocator).isDisplayed();
     }
 
     @Step("Выделена вкладка Соусы")
-    public boolean inDoneDesplayedSouse(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(souseTextLocator));
+    public boolean inDoneDesplayedSouse() {
         return driver.findElement(souseTextLocator).isDisplayed();
     }
 
     @Step("Выделена вкладка Начинки")
-    public boolean inDoneDesplayedFilling(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(fillingTextLocator));
+    public boolean inDoneDesplayedFilling() {
         return driver.findElement(fillingTextLocator).isDisplayed();
     }
 }

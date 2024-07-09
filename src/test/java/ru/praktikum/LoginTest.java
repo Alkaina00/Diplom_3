@@ -2,61 +2,28 @@ package ru.praktikum;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import ru.praktikum.model.User;
 import ru.praktikum.page.LoginPage;
 import ru.praktikum.page.MainPage;
 import ru.praktikum.page.RegisterPage;
-import ru.praktikum.steps.UserSteps;
 
 import static org.junit.Assert.assertTrue;
 
-public class LoginTest{
-    public WebDriver webDriver;
-    private static final String URL_TEST = "https://stellarburgers.nomoreparties.site/";
-
-    private final UserSteps userSteps = new UserSteps();
-    private User user;
-    private String email;
-    private String password;
-    private String name;
-
+public class LoginTest extends BaseTest {
     private MainPage mainPage;
     private LoginPage loginPage;
     private RegisterPage registerPage;
-
-    @Before
-    public void setUp() {
-        webDriver = WebDriverFactory.getWebDriver();
-        webDriver.get(URL_TEST);
-        RestAssured.filters(new RequestLoggingFilter());
-        email = RandomStringUtils.randomAlphabetic(10)+"@mail.ru";
-        password = RandomStringUtils.randomAlphabetic(10);
-        name = RandomStringUtils.randomAlphabetic(10);
-
-        user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setName(name);
-        userSteps.createUser(user);
-
-        mainPage = new MainPage(webDriver);
-        loginPage = new LoginPage(webDriver);
-        registerPage = new RegisterPage(webDriver);
-
-    }
 
     @Test
     @DisplayName("Вход на главной")
     @Description("Вход по кнопке «Войти в аккаунт» на главной")
     public void loginMainTest() {
+        userSteps.createUser(user);
+
+        mainPage = new MainPage(webDriver);
         mainPage.clickButtonInMain();
+
+        loginPage = new LoginPage(webDriver);
         loginPage.inputLogin(email, password);
         loginPage.clickLogin();
 
@@ -67,7 +34,12 @@ public class LoginTest{
     @DisplayName("Вход через Личный кабинет")
     @Description("Вход через кнопку «Личный кабинет»")
     public void loginLKTest() {
+        userSteps.createUser(user);
+
+        mainPage = new MainPage(webDriver);
         mainPage.clickButtonLK();
+
+        loginPage = new LoginPage(webDriver);
         loginPage.inputLogin(email, password);
         loginPage.clickLogin();
 
@@ -78,8 +50,15 @@ public class LoginTest{
     @DisplayName("Вход через форму регистрации")
     @Description("Успешный вход через форму регистрации")
     public void loginRegistrationTest() {
+        userSteps.createUser(user);
+
+        mainPage = new MainPage(webDriver);
         mainPage.clickButtonLK();
+
+        loginPage = new LoginPage(webDriver);
         loginPage.clickRegister();
+
+        registerPage = new RegisterPage(webDriver);
         registerPage.clickLogin();
         loginPage.inputLogin(email, password);
         loginPage.clickLogin();
@@ -91,6 +70,11 @@ public class LoginTest{
     @DisplayName("Вход через форму восстановления пароля")
     @Description("Успешный вход через кнопку в форме восстановления пароля")
     public void loginRecoveryTest() {
+        userSteps.createUser(user);
+        loginPage = new LoginPage(webDriver);
+        registerPage = new RegisterPage(webDriver);
+        mainPage = new MainPage(webDriver);
+
         webDriver.get("https://stellarburgers.nomoreparties.site/login");
         loginPage.clickRecovery();
         registerPage.clickLogin();
@@ -103,27 +87,17 @@ public class LoginTest{
     @Test
     @DisplayName("Успешный выход")
     @Description("Успешный выход по кнопке «Выйти» в личном кабинете")
-    public void logoutTest(){
+    public void logoutTest() {
+        userSteps.createUser(user);
+
         webDriver.get("https://stellarburgers.nomoreparties.site/login");
+        mainPage = new MainPage(webDriver);
+        loginPage = new LoginPage(webDriver);
         loginPage.inputLogin(email, password);
         loginPage.clickLogin();
         mainPage.clickButtonLK();
         loginPage.clickLogout();
 
         assertTrue(loginPage.inDoneDesplayedTextIn());
-    }
-
-    @After
-    public void tearDown() {
-        // Закрой браузер
-        webDriver.close();
-
-        // Удаление пользователя
-        String token = userSteps.loginUser(user)
-                .extract().body().path("accessToken");
-        if(token != null){
-            user.setToken(token);
-            userSteps.deleteUser(user);
-        }
     }
 }

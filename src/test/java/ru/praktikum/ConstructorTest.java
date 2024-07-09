@@ -2,33 +2,22 @@ package ru.praktikum;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import ru.praktikum.page.LoginPage;
 import ru.praktikum.page.MainPage;
 
 import static org.junit.Assert.assertTrue;
 
-public class ConstructorTest{
-    public WebDriver webDriver;
-    private static final String URL_TEST = "https://stellarburgers.nomoreparties.site/";
+public class ConstructorTest extends BaseTest {
     private MainPage mainPage;
     private LoginPage loginPage;
-
-    @Before
-    public void setUp() {
-        webDriver = WebDriverFactory.getWebDriver();
-        webDriver.get(URL_TEST);
-        mainPage = new MainPage(webDriver);
-        loginPage = new LoginPage(webDriver);
-    }
 
     @Test
     @DisplayName("Переход в личный кабинет")
     @Description("Успешный переход по клику на «Личный кабинет»")
-    public void transitionLKTest(){
+    public void transitionLKTest() {
+        mainPage = new MainPage(webDriver);
+        loginPage = new LoginPage(webDriver);
         mainPage.clickButtonLK();
         assertTrue(loginPage.inDoneDesplayedTextIn());
     }
@@ -38,6 +27,7 @@ public class ConstructorTest{
     @Description("Успешный переход по клику на «Конструктор»")
     public void transitionConstructorTest() {
         webDriver.get("https://stellarburgers.nomoreparties.site/login");
+        mainPage = new MainPage(webDriver);
         mainPage.clickConstructor();
         assertTrue(mainPage.inDoneDesplayedBurger());
     }
@@ -47,6 +37,7 @@ public class ConstructorTest{
     @Description("Успешный переход по клику на логотип Stellar Burgers")
     public void transitionLogoTest() {
         webDriver.get("https://stellarburgers.nomoreparties.site/login");
+        mainPage = new MainPage(webDriver);
         mainPage.clickLogo();
         assertTrue(mainPage.inDoneDesplayedBurger());
     }
@@ -55,6 +46,7 @@ public class ConstructorTest{
     @DisplayName("Переход к разделам «Булки»")
     @Description("Успешный переход к разделам «Булки»")
     public void transitionBunTest() {
+        mainPage = new MainPage(webDriver);
         mainPage.clickSouseTab();
         mainPage.clickBunTab();
         assertTrue(mainPage.inDoneDesplayedBun());
@@ -64,6 +56,7 @@ public class ConstructorTest{
     @DisplayName("Переход к разделам «Соусы»")
     @Description("Успешный переход к разделам «Соусы»")
     public void transitionSouseTest() {
+        mainPage = new MainPage(webDriver);
         mainPage.clickSouseTab();
         assertTrue(mainPage.inDoneDesplayedSouse());
     }
@@ -72,13 +65,8 @@ public class ConstructorTest{
     @DisplayName("Переход к разделам «Начинки»")
     @Description("Успешный переход к разделам «Начинки»")
     public void transitionFillingTest() {
+        mainPage = new MainPage(webDriver);
         mainPage.clickFillingTab();
         assertTrue(mainPage.inDoneDesplayedFilling());
-    }
-
-    @After
-    public void tearDown() {
-        // Закрой браузер
-        webDriver.close();
     }
 }

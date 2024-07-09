@@ -4,19 +4,19 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class WebDriverFactory {
     private static WebDriver driver;
 
     public static WebDriver getWebDriver() {
-        if(driver == null){
+        if (driver == null) {
             String browser = System.getProperty("browser");
-            switch (browser){
+            switch (browser) {
                 case "chrome":
                     return WebDriverManager.chromedriver().create();
                 case "firefox":
-                    return  WebDriverManager.firefoxdriver().create();
+                    return WebDriverManager.firefoxdriver().create();
                 case "yandex":
                     System.setProperty("webdriver.chrome.driver", "src/test/resources/yandexdriver-24.6.0.1878-win/yandexdriver.exe");
                     return new ChromeDriver();
@@ -24,7 +24,7 @@ public class WebDriverFactory {
                     throw new RuntimeException("Unsupported browser: " + browser);
             }
         }
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         return driver;
     }
 }

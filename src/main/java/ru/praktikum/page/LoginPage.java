@@ -4,10 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static java.time.Duration.ofSeconds;
 
 public class LoginPage {
     private final WebDriver driver;
@@ -25,17 +21,13 @@ public class LoginPage {
     }
 
     @Step("Нажать на ссылку Зарегистрировать")
-    public void clickRegister(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(registerLocator));
+    public void clickRegister() {
         WebElement register = driver.findElement(registerLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(register));
         register.click();
     }
 
     @Step("Заполнение полей входа email, password")
-    public void inputLogin(String email, String password){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(emailLocator));
+    public void inputLogin(String email, String password) {
         WebElement emailLogin = driver.findElement(emailLocator);
         emailLogin.sendKeys(email);
 
@@ -44,35 +36,25 @@ public class LoginPage {
     }
 
     @Step("Нажать кнопку Войти")
-    public void clickLogin(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(buttonInLocator));
+    public void clickLogin() {
         WebElement buttonIn = driver.findElement(buttonInLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(buttonIn));
         buttonIn.click();
     }
 
     @Step("Нажать ссылку Восстановить пароль")
-    public void clickRecovery(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(recoveryLocator));
+    public void clickRecovery() {
         WebElement recovery = driver.findElement(recoveryLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(recovery));
         recovery.click();
     }
 
     @Step("Нажать кнопку Выйти")
-    public void clickLogout(){
-        new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(logoutLocator));
+    public void clickLogout() {
         WebElement logout = driver.findElement(logoutLocator);
-        new WebDriverWait(driver, ofSeconds(15))
-                .until(ExpectedConditions.elementToBeClickable(logout));
         logout.click();
     }
 
     @Step("Отображается кнопка Войти")
-    public boolean inDoneDesplayedTextIn(){
-        new WebDriverWait(driver, ofSeconds(15)).until(ExpectedConditions.visibilityOfElementLocated(buttonInLocator));
+    public boolean inDoneDesplayedTextIn() {
         return driver.findElement(buttonInLocator).isDisplayed();
     }
 }
